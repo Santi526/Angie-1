@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenida Angie</title>
+<style>
+  /* Fondo animado de estrellas */
+  body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  }
+
+  .stars {
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: 
+      100px 200px #fff, 150px 300px #fff, 250px 100px #fff, 
+      350px 400px #fff, 500px 50px #fff, 600px 200px #fff,
+      700px 300px #fff, 800px 150px #fff, 900px 400px #fff, 
+      1000px 250px #fff, 1100px 350px #fff, 1200px 100px #fff;
+    animation: animStar 100s linear infinite;
+  }
+
+  .stars::after {
+    content: " ";
+    position: absolute;
+    top: 1000px;
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: 
+      100px 200px #fff, 150px 300px #fff, 250px 100px #fff, 
+      350px 400px #fff, 500px 50px #fff, 600px 200px #fff,
+      700px 300px #fff, 800px 150px #fff, 900px 400px #fff, 
+      1000px 250px #fff, 1100px 350px #fff, 1200px 100px #fff;
+  }
+
+  @keyframes animStar {
+    from { transform: translateY(0); }
+    to { transform: translateY(-1000px); }
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px #ff69b4, 0 0 30px #ff1493;
+  }
+
+  .question {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px #ff69b4;
+  }
+
+  input[type="text"] {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  #entrarBtn {
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(255,105,180,0.5);
+    transition: all 0.3s ease;
+    display: none;
+    animation: pulse 2s infinite;
+  }
+
+  #entrarBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(255,105,180,0.8);
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+</style>
+</head>
+<body>
+  <div class="stars"></div>
+  <h1>Qué tal Angie, ¿cómo vas?</h1>
+  <div class="question">¿Cuál es el país que se ríe y luego explota?</div>
+  <input type="text" id="respuesta" placeholder="Escribe tu respuesta">
+  <button id="entrarBtn" onclick="window.location.href='pagina.html'">Entra a tu página fase beta</button>
+
+<script>
+  const input = document.getElementById('respuesta');
+  const button = document.getElementById('entrarBtn');
+
+  input.addEventListener('input', () => {
+    const valor = input.value.trim().toLowerCase();
+    if(valor === "japón" || valor === "japon") {
+      button.style.display = 'inline-block';
+    } else {
+      button.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>

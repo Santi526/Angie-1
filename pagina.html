@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Para Angie — Carta</title>
+<style>
+:root{--bg1:#07132a;--bg2:#0b2b4a;--card:#fffefc;--accent:#ff6b9a;--text:#102134}
+html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Roboto,Arial;background:var(--bg1);color:var(--text)}
+.stars{position:fixed;inset:0;background:radial-gradient(ellipse at bottom,#0b2b4a 0%, #07132a 60%);overflow:hidden}
+.star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;opacity:0.9}
+.shoot{position:absolute;width:120px;height:2px;background:linear-gradient(90deg,rgba(255,255,255,0.9),rgba(255,255,255,0));transform:rotate(-20deg);opacity:0}
+.wrap{max-width:420px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;position:relative}
+header{position:absolute;top:18px;left:12px;right:12px;display:flex;justify-content:center;gap:8px;z-index:30} 
+.tag{background:rgba(255,255,255,0.06);color:white;padding:8px 10px;border-radius:10px;font-weight:700;display:flex;align-items:center;gap:8px;font-size:13px} 
+.tag .caret{transform:rotate(0);transition:transform .25s} 
+.panel-wrap{position:absolute;top:64px;left:12px;right:12px;display:flex;flex-direction:column;gap:8px;align-items:stretch;z-index:29} 
+.panel{background:rgba(255,255,255,0.96);color:#07324a;padding:12px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.25);display:none;font-size:14px;line-height:1.45}
+.card-area{width:100%;display:flex;align-items:center;justify-content:center;z-index:20} 
+.envelope{width:320px;max-width:92%;height:220px;position:relative;cursor:pointer;user-select:none} 
+.env-body{position:absolute;inset:0;border-radius:12px;background:linear-gradient(180deg,#fffefc,#fff0f5);box-shadow:0 18px 40px rgba(0,0,0,0.28);overflow:hidden} 
+.env-flap{position:absolute;left:0;right:0;top:0;height:56%;background:linear-gradient(180deg,#fff 0%,#ffeef6 100%);border-bottom-left-radius:160px;border-bottom-right-radius:160px;transform-origin:top center;transition:transform .7s cubic-bezier(.2,.9,.2,1), box-shadow .25s} 
+.env-seal{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:68px;height:68px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ff7aa6,#ef476f);box-shadow:0 8px 20px rgba(0,0,0,0.18);display:flex;align-items:center;justify-content:center;color:white;font-weight:800}
+.letter-inner{position:absolute;left:8px;right:8px;top:24px;bottom:12px;padding:18px;border-radius:10px;background:transparent;opacity:0;transform:translateY(6px);transition:opacity .45s ease, transform .45s ease;overflow:auto} 
+.letter-inner h1{font-size:18px;margin:0 0 8px;color:white;text-shadow:0 6px 14px rgba(2,10,20,0.6)} 
+.letter-inner p{font-size:15px;line-height:1.45;color:#041e2f;background:rgba(255,255,255,0.96);padding:12px;border-radius:10px} 
+.envelope.open .env-flap{transform:rotateX(180deg);box-shadow:0 6px 10px rgba(0,0,0,0.1)} 
+.envelope.open .letter-inner{opacity:1;transform:none}
+.note{margin-top:12px;color:rgba(255,255,255,0.85);font-size:13px;text-align:center}
+@media (min-width:460px){.envelope{height:260px}} 
+</style>
+</head>
+<body>
+<div class="stars" aria-hidden="true">
+  <div class="shoot" id="shoot"></div>
+</div>  
+<div class="wrap">
+<header>
+  <div class="tag" data-key="hermosa">Hermosa <span class="caret">▼</span></div>
+  <div class="tag" data-key="atenta">Atenta <span class="caret">▼</span></div>
+  <div class="tag" data-key="valiosa">Valiosa <span class="caret">▼</span></div>
+  <div class="tag" data-key="unica">Única <span class="caret">▼</span></div>
+</header>
+<div class="panel-wrap" id="panelWrap">
+  <div class="panel" id="panel-hermosa"><strong>Hermosa:</strong> Eres la niña más hermosa que han visto mis ojos, eres una morenita muy preciosa, guapa que no se compara con nadie, tu hermosura es única que me podría quedar horas admirándote.</div>
+  <div class="panel" id="panel-atenta"><strong>Atenta:</strong> Eres la niña más atenta que he visto; siempre te preocupas por que uno esté bien, que coma, que me duerma temprano, que agarre responsabilidad; eres muy atenta y bella.</div>
+  <div class="panel" id="panel-valiosa"><strong>Valiosa:</strong> Eres tan valiosa para mí por las cosas que me haces sentir; el simple hecho de ver tu mensaje siempre me alegra los días, voy con una sonrisa a todos lados simplemente por hablar contigo porque eres muy valiosa para mí.</div>
+  <div class="panel" id="panel-unica"><strong>Única:</strong> Eres una persona tan única, especial que se preocupa por los demás; tienes mucha empatía y mucho amor para dar; eres una niña muy única y eso te hace la mejor niña que he visto.</div>
+</div>
+<h1 style="text-align:center; color:pink;">para la niña más hermosa del mundo</h1>
+
+<div class="card-area">
+  <div class="envelope" id="envelope" role="button" aria-label="Tocar para abrir la carta">
+    <div class="env-body">
+      <div class="env-flap" id="flap"></div>
+      <div class="env-seal">💌</div>
+      <div class="letter-inner" id="letterInner">
+        <h1 style="text-align:center; color:pink;">¿Por qué eres la mejor niña que he conocido?</h1>
+        <p id="letterText">
+Angie, déjame dejarte en claro que eres la mejor niña que he podido conocer. Vales oro, en serio. Eres muy bella, amable, cariñosa, buena gente y me haces sentir amado. Quiero que sepas lo mucho que vales para mí, y también lo mucho que vales como persona. Eres bella, inteligente, atenta… la mujer perfecta jajajaja. Eres una morenita tan bella llena de tantas cualidades hermosas que con tu sola presencia le puedes hacer feliz el día a una persona como me haces feliz a mí todos los días que hablo contigo. Me encanta tu amor por los animalitos, tu manera de ser, tu humor, tu manera de expresarte, tu voz, tus ojos, tu cabello… me encanta todo de ti. Y lo más importante: te amo un montón, en serio, demasiado. Te amo hasta el infinito. Hice esto para que, cuando te sientas mal o menos, vengas aquí y recuerdes que eres una persona maravillosa y que yo, tu amigo, te ama muchísimo. He de decir que… la luna está muy bella hoy JAJAJAJA.
+        </p>
+
+        <!-- Flores y regalo -->
+        <div style="margin-top:16px;text-align:center">
+          <div style="font-size:24px;margin-bottom:12px;">🌹🌹🌹</div>
+          <div style="font-weight:800;font-size:16px;color:#ff4d6d;">Las rosas que te mereces y más <span style="font-weight:400">(al menos estas sí te llegaron, no como las del Rappi)</span></div>
+          <div id="gift" style="margin-top:16px;font-size:40px;cursor:pointer;">🎁</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<audio src="riptide.mp3" autoplay </audio>
+
+
+<script>
+// 🌠 estrellas
+const starCount = 60;
+const starsEl = document.querySelector('.stars');
+for (let i = 0; i < starCount; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const x = Math.random() * 100;
+  const y = Math.random() * 100;
+  const sz = Math.random() * 2 + 1;
+  s.style.left = x + '%';
+  s.style.top = y + '%';
+  s.style.width = sz + 'px';
+  s.style.height = sz + 'px';
+  s.style.opacity = 0.6 + Math.random() * 0.8;
+  starsEl.appendChild(s);
+}
+function shoot() {
+  const sh = document.getElementById('shoot');
+  sh.style.left = (10 + Math.random() * 70) + '%';
+  sh.style.top = (10 + Math.random() * 40) + '%';
+  sh.style.opacity = 1;
+  sh.style.transform = 'scale(1) rotate(-20deg)';
+  setTimeout(() => {
+    sh.style.opacity = 0;
+    sh.style.transform = 'scale(0) rotate(-20deg)';
+  }, 900);
+}
+setInterval(shoot, 4200 + Math.random() * 4000);
+
+// 🩷 paneles de descripción
+const tags = document.querySelectorAll('.tag');
+const panels = {
+  hermosa: document.getElementById('panel-hermosa'),
+  atenta: document.getElementById('panel-atenta'),
+  valiosa: document.getElementById('panel-valiosa'),
+  unica: document.getElementById('panel-unica')
+};
+let openKey = null;
+tags.forEach(tag => {
+  tag.addEventListener('click', () => {
+    const key = tag.dataset.key;
+    if (openKey && openKey !== key) {
+      panels[openKey].style.display = 'none';
+      document.querySelector(`[data-key="${openKey}"] .caret`).style.transform = '';
+    }
+    if (openKey === key) {
+      panels[key].style.display = 'none';
+      openKey = null;
+      tag.querySelector('.caret').style.transform = '';
+    } else {
+      panels[key].style.display = 'block';
+      openKey = key;
+      tag.querySelector('.caret').style.transform = 'rotate(180deg)';
+      panels[key].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+});
+
+// 💌 abrir carta
+const envelope = document.getElementById('envelope');
+const letterInner = document.getElementById('letterInner');
+const audio = document.getElementById('miAudio');
+let opened = false;
+envelope.addEventListener('click', openEnvelope, { passive: true });
+envelope.addEventListener('touchstart', openEnvelope, { passive: true });
+
+function openEnvelope() {
+  if (opened) return;
+  opened = true;
+  envelope.classList.add('open');
+  setTimeout(() => { letterInner.scrollTop = 0; }, 500);
+  // 🎵 reproducir música al abrir la carta
+  audio.play().catch(()=>{});
+}
+
+// 🎁 regalo animado
+const gift = document.getElementById('gift');
+gift.addEventListener('click', () => {
+  let count = 0;
+  const bounce = () => {
+    gift.style.transform = 'translateY(-20px)';
+    setTimeout(() => {
+      gift.style.transform = 'translateY(0)';
+      count++;
+      if (count < 3) setTimeout(bounce, 200);
+    }, 200);
+  };
+  bounce();
+});
+
+// teclado (abrir con Enter)
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') openEnvelope();
+});
+</script>
+</body>
+</html>
